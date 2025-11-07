@@ -1,0 +1,59 @@
+﻿@model _24DH113423_MyStore.Models.ViewModel.ProductDetailsVM
+@{
+    ViewBag.Title = "ProductDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerDetailProduct.css" />
+
+<div class="container-fluid pro">
+    <div class="div-horizontal">
+        @* Khối bên trái *@
+        <div class="col-md-3 pro-section">@* Ảnh sản phẩm *@
+            <img src="@Model.Product.ProductImage" />
+        </div>
+        @* Khối ở giữa *@
+        <div class="col-md-5 pro-section">
+            @* Phần thông tin sản phẩm *@
+            <div>
+                <h4>@Html.DisplayFor(model => model.Product.ProductName)</h4>
+                <p class="pro-sale">Đã bán: &nbsp;@Model.Product.OrderDetails.Count()</p>
+                <p class="pro-price">@Model.Product.ProductPrice.ToString("C")</p>
+                <p>Từ sách:&nbsp;@Model.Product.Category.CategoryName</p>
+                <hr />
+                <h5><strong>Mô tả:</strong></h5>
+                <p>@Model.Product.ProductDescription</p>
+                <hr />
+            </div>
+
+            @* Khối Related Product *@
+            <div>@Html.Partial("PVRelatedProduct", Model)</div>
+        </div>
+        @* Khối bên phải *@
+        <div class="col-md-3 pro-section">
+            <div class="form-group">@* Phần tạm tính *@
+                @using (Html.BeginForm("ProductDetails", "Home", FormMethod.Get))
+                {
+                    <p>
+                        <h6><strong>Số lượng:</strong></h6>
+                        @Html.TextBoxFor(model => model.quantity, new
+                        { @class = "form-control", @type = "number", @min = 1 })
+                    </p>
+
+                    <h6><strong>Tạm tính:</strong></h6>
+                    <p>@Model.estimatedValue.ToString("N0")</p>
+
+                    <p>
+                        @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "Cart",
+                            new { id = Model.Product.ProductID, quantity = Model.quantity },
+                            new { @class = "btn btn-info" })
+                    </p>
+                }
+            </div>
+            <hr />
+            @* Khối TopProduct *@
+            <div>@Html.Partial("PVTopProduct", Model)</div>
+        </div>
+    </div>
+</div>

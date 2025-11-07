@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -29,5 +30,34 @@ namespace _24DH113423_MyStore.Models.ViewModel
 
         [Required]
         public string Role { get; set; }
+    }
+    public class CustomerMetadata
+    {
+
+    }
+    public class SupplierMetadata
+    {
+
+    }
+    public class ProductMetadata
+    {
+        [Display(Name = "Mã sản phẩm")]
+        public int ProID { get; set; }
+
+        [StringLength(50)]
+        [Required(ErrorMessage = "Phải nhập tên sản phẩm")]
+        [Display(Name = "Mã sản phẩm")]
+        public string ProName { get; set; }
+
+        [Display(Name = "Chủng loại sản phẩm")]
+        public int CatID { get; set; }
+        [Display(Name = "Đường dẫn ảnh sản phẩm")]
+        [DefaultValue("~/Content/image/default_img.jfjf")]
+        public string ProImage { get; set; }
+
+        [Display(Name = "Mô tả sản phẩm")]
+        public string NameDescription { get; set; }
+        [DefaultValue(true)]
+        public System.DateTime CreatedDate { get; set; }
     }
 }
