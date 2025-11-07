@@ -284,6 +284,7 @@
     <Content Include="Views\Home\PVRelatedProduct.cshtml" />
     <Content Include="Views\Home\PVTopProduct.cshtml" />
     <Content Include="Views\Cart\Index2.cshtml" />
+    <Content Include="Views\Cart\_PVSimilarProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
