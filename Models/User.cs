@@ -21,10 +21,9 @@ namespace _24DH113423_MyStore.Models
         {
             this.Customers = new HashSet<Customer>();
         }
-        [StringLength (50)]
+ 
         public string Username { get; set; }
-      
-        [Required]
+
         public string Password { get; set; }
         public string UserRole { get; set; }
     
