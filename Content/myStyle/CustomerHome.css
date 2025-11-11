@@ -1,11 +1,6 @@
 ﻿/*Style cho phần BANNER (Giữ nguyên)*/
-.banner {
-    background-image: url('../..images/banner.jpg');
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 300px;
+.container-fluid banner {
+    
 }
 
 .banner-container {
@@ -68,58 +63,66 @@
 
 /*style của FEATURE PRODUCT (Đã sửa)*/
 .featureProd {
-    text-align: center; /* Căn giữa tiêu đề */
+    text-align: center;
 }
 
 .feature-container {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 15px; /* Thêm khoảng cách giữa các items cho flex container */
-    padding: 10px 0; /* Thêm padding dọc */
-    justify-content: flex-start; /* Bắt đầu từ bên trái */
+    gap: 30px;
+    padding: 10px 0;
+    justify-content: center;
 }
 
 .fproduct-item {
-    width: 180px; /* Tăng kích thước tối thiểu */
-    max-height: 400px;
-    min-width: 180px; /* Đảm bảo kích thước tối thiểu */
+    /* Giảm kích thước item tổng thể để chứa ảnh nhỏ hơn */
+    width: 130px;
+    max-height: 350px; /* Giảm chiều cao tối đa của item */
+    min-width: 130px;
     margin: 10px;
     flex: 0 0 auto;
     scroll-snap-align: start;
-    text-align: center; /* Căn giữa nội dung item */
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 5px;
 }
 
-    .fproduct-item img {
-        display: block; /* Giúp dễ kiểm soát kích thước */
-        width: auto;
-        max-height: 200px; /* Tăng chiều cao tối đa của ảnh */
-        margin: 5px auto; /* Căn giữa ảnh */
-        background-color: transparent;
-    }
+.fproduct-item img {
+    display: block;
+    width: auto;
+    /* **ĐIỀU CHỈNH: Giảm chiều cao ảnh nổi bật** */
+    height: 120px;
+    max-height: 120px;
+    margin: 5px auto;
+    background-color: transparent;
+    object-fit: contain;
+}
 
 /*style của LIST PRODUCT (Đã sửa)*/
 .listProduct {
     text-align: left;
     margin-top: 40px;
 }
+
     .listProduct h2 {
         font-size: 2em;
         margin-bottom: 30px;
         color: #333;
         text-align: center;
     }
+
 .list-container {
     list-style-type: none;
-    /* Điều chỉnh minmax lên 180px để sản phẩm có đủ không gian */
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    /* Giảm minmax để phù hợp với kích thước item nhỏ hơn */
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     display: grid;
     gap: 20px;
-    padding: 0;
+    padding: 0 10px;
     margin: 0;
 }
 
-.lproduct-item {
+.product-item {
     height: 100%;
     border: 1px solid #eee;
     border-radius: 8px;
@@ -128,23 +131,24 @@
     background-color: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     display: flex;
-    flex-direction: column; /* Sắp xếp nội dung theo cột */
-    justify-content: space-between; /* Đẩy nội dung ra hai đầu */
+    flex-direction: column;
+    justify-content: space-between;
     transition: transform 0.2s ease-in-out;
 }
-}
 
-.lproduct-item img {
-    display: block; /* Giúp dễ kiểm soát kích thước */
-    width: auto;
-    max-height: 150px;
-    max-width: 100%;
-    margin: 5px auto 10px auto; /* Căn giữa ảnh và tạo khoảng cách */
-    object-fit: contain;
-    background-color: transparent;
-}
+    .product-item img {
+        display: block;
+        width: auto;
+        /* **ĐIỀU CHỈNH: Giảm chiều cao ảnh sản phẩm mới** */
+        height: 120px;
+        max-height: 120px;
+        max-width: 100%;
+        margin: 5px auto 10px auto;
+        object-fit: contain;
+        background-color: transparent;
+    }
 
-/*các thuộc tính chung của FEATURE và NEW sản phẩm (Đã sửa)*/
+/*các thuộc tính chung của FEATURE và NEW sản phẩm (Giữ nguyên)*/
 .featureProd h2, .listProduct h2 {
     font-size: 2em;
     margin-bottom: 20px;
@@ -157,22 +161,29 @@
     color: blue;
     font-weight: bolder;
     padding: 0 5px;
-    margin-top: 5px; /* Thêm margin trên */
-    display: block; /* Đảm bảo giá chiếm hết dòng */
+    margin-top: 5px;
+    display: block;
 }
 
 .prodName {
     color: black;
     font-weight: bold;
+    font-size: 0.9em;
     padding: 0 5px;
     margin-top: 5px;
     display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.6em;
 }
 
 .prodCate {
     color: black;
+    font-size: 0.85em;
     padding: 0 5px;
-    margin-bottom: 5px; /* Thêm margin dưới */
+    margin-bottom: 5px;
     display: block;
 }
 

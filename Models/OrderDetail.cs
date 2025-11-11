@@ -19,7 +19,6 @@ namespace _24DH113423_MyStore.Models
         public int OrderID { get; set; }
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-        public Nullable<decimal> Totalprice { get; set; }
     
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }

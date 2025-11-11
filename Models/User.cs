@@ -11,9 +11,7 @@ namespace _24DH113423_MyStore.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,9 +19,8 @@ namespace _24DH113423_MyStore.Models
         {
             this.Customers = new HashSet<Customer>();
         }
- 
+    
         public string Username { get; set; }
-
         public string Password { get; set; }
         public string UserRole { get; set; }
     

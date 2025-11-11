@@ -114,9 +114,9 @@ namespace _24DH113423_MyStore.Controllers
                 order.OrderDate = model.OrderDate;
                 order.TotalAmount = model.TotalAmount;
                 order.PaymentStatus = paymentStatus;
-                order.PaymentMethod = model.PaymentMethod;
-                order.ShippingMethod = model.ShippingMethod;
-                order.ShippingAddress = model.ShippingAddress;
+                //order.PaymentMethod = model.PaymentMethod;
+                //order.ShippingMethod = model.ShippingMethod;
+                //order.ShippingAddress = model.ShippingAddress;
 
                 // Chuyển đổi CartItems thành OrderDetails và gán vào Order
                 order.OrderDetails = cart.Select(item => new OrderDetail
