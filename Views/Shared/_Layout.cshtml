@@ -44,12 +44,12 @@
                 color: #007bff;
             }
 
-        /* Header chính */
+        /* Header chính: logo trái, menu phải */
         .header-main {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 10px 20px;
             background-color: #ffffff;
         }
 
@@ -73,6 +73,7 @@
             font-size: 14px;
         }
 
+            /* Menu item */
             .header-nav .nav-item {
                 display: flex;
                 align-items: center;
@@ -81,6 +82,7 @@
                 position: relative;
             }
 
+                /* Thêm icon vào menu */
                 .header-nav .nav-item i {
                     margin-right: 5px;
                 }
@@ -133,7 +135,7 @@
             display: block;
         }
 
-        /* Badge giỏ hàng */
+        /* Giỏ hàng */
         .cart-badge {
             background-color: #ff4d4f;
             color: #fff;
@@ -141,6 +143,15 @@
             padding: 2px 7px;
             font-size: 11px;
             margin-left: 4px;
+        }
+
+        /* Thanh navbar */
+        .header-nav .nav-item {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+            position: relative;
         }
     </style>
 </head>
