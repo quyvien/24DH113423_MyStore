@@ -30,16 +30,16 @@ namespace _24DH113423_MyStore.Controllers
             }
             switch (sortOrder)
             {
-                case "name_asc":
+                case "name-asc":
                     products = products.OrderBy(p => p.ProductName);  // Sắp xếp theo tên tăng dần
                     break;
-                case "name_desc":
+                case "name-desc":
                     products = products.OrderByDescending(p => p.ProductName);  // Sắp xếp theo tên giảm dần
                     break;
-                case "price_asc":
+                case "price-asc":
                     products = products.OrderBy(p => p.ProductPrice);  // Sắp xếp theo giá tăng dần
                     break;
-                case "price_desc":
+                case "price-desc":
                     products = products.OrderByDescending(p => p.ProductPrice);  // Sắp xếp theo giá giảm dần
                     break;
                 default:

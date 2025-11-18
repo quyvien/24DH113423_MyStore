@@ -1,4 +1,4 @@
-﻿/* Style cho phần BANNER (Giữ nguyên) */
+﻿/* Style cho phần BANNER */
 .container-fluid.banner {
     /* Giữ nguyên style banner */
 }
@@ -25,7 +25,7 @@
     font-weight: bold;
 }
 
-/* Style cho phần SEARCH (Giữ nguyên) */
+/* Style cho phần SEARCH */
 .search-container {
     display: flex;
     justify-content: center;
@@ -61,7 +61,7 @@
     color: brown;
 }
 
-/* Style của FEATURE PRODUCT (Đã sửa) */
+/* Style của FEATURE PRODUCT */
 .featureProd {
     text-align: center;
 }
@@ -100,7 +100,7 @@
         object-fit: contain;
     }
 
-/* Style của LIST PRODUCT (Đã sửa) */
+/* Style của LIST PRODUCT */
 .listProduct {
     text-align: left;
     margin-top: 40px;
@@ -147,7 +147,7 @@
         background-color: transparent;
     }
 
-/* Các thuộc tính chung của FEATURE và NEW sản phẩm (Giữ nguyên) */
+/* Các thuộc tính chung của FEATURE và NEW sản phẩm */
 .featureProd h2, .listProduct h2 {
     font-size: 2em;
     margin-bottom: 20px;

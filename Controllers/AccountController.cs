@@ -18,6 +18,7 @@ namespace _24DH113423_MyStore.Controllers
     {
         private MyStoreEntities db = new MyStoreEntities();
         private const string ROLE_CUSTOMER = "C";
+
         // GET: Account/Register
         public ActionResult Register()
         {
@@ -31,75 +32,56 @@ namespace _24DH113423_MyStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                // kiểm tra trùng username
+                var existingUser = db.Users.SingleOrDefault(u => u.Username == model.Username);
+                if (existingUser != null)
+                {
+                    ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại!");
+                    return View(model);
+                }
+
+                // nếu chưa tồn tại thì tạo bản ghi thông tin tài khoản trong bảng User
+                var user = new User
+                {
+                    Username = model.Username,
+                    Password = model.Password, 
+                    UserRole = ROLE_CUSTOMER     // "C"
+                };
+                db.Users.Add(user);
+
+                // và tạo bản ghi thông tin khách hàng trong bảng Customer
+                var customer = new Customer
+                {
+                    CustomerName = model.CustomerName,
+                    CustomerEmail = model.CustomerEmail,
+                    CustomerPhone = model.CustomerPhone,
+                    CustomerAddress = model.CustomerAddress,
+                    Username = model.Username
+                };
+                db.Customers.Add(customer);
+
                 try
                 {
-                    // Kiểm tra xem tên đăng nhập đã tồn tại chưa
-                    var existingUser = db.Users.SingleOrDefault(u => u.Username == model.Username);
-                    if (existingUser != null)
-                    {
-                        ModelState.AddModelError("Username", "Tên đăng nhập này đã tồn tại!");
-                        return View(model);
-                    }
-
-                    // Kiểm tra email đã tồn tại chưa
-                    var existingEmail = db.Customers.SingleOrDefault(c => c.CustomerEmail == model.CustomerEmail);
-                    if (existingEmail != null)
-                    {
-                        ModelState.AddModelError("CustomerEmail", "Email này đã được sử dụng.");
-                        return View(model);
-                    }
-
-                    // Mã hóa mật khẩu
-                    var passwordHash = HashPassword(model.Password);
-
-                    // Tạo bản ghi thông tin tài khoản trong bảng User
-                    var user = new User
-                    {
-                        Username = model.Username,
-                        Password = passwordHash, // Mã hóa mật khẩu trước khi lưu
-                        UserRole = ROLE_CUSTOMER
-                    };
-                    db.Users.Add(user);
-
-                    // Tạo bản ghi thông tin khách hàng trong bảng Customer
-                    var customer = new Customer
-                    {
-                        CustomerName = model.CustomerName,
-                        CustomerEmail = model.CustomerEmail,
-                        CustomerPhone = model.CustomerPhone,
-                        CustomerAddress = model.CustomerAddress,
-                        Username = model.Username,
-                    };
-                    db.Customers.Add(customer);
-
-                    // Lưu thông tin tài khoản và thông tin khách hàng vào CSDL
+                    // lưu thông tin tài khoản và thông tin khách hàng vào CSDL
                     db.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
-                catch (DbEntityValidationException ex)
+                catch (System.Data.Entity.Validation.DbEntityValidationException ex)
                 {
+                    // Ghi rõ field nào sai
                     var errors = ex.EntityValidationErrors
                                     .SelectMany(e => e.ValidationErrors)
                                     .Select(e => e.PropertyName + ": " + e.ErrorMessage)
                                     .ToList();
-                    var errorMessage = string.Join("; ", errors);
 
-                    // Thêm thông báo lỗi vào ModelState để hiển thị trong view
+                    string errorMessage = string.Join("; ", errors);
                     ModelState.AddModelError("", "Validation failed: " + errorMessage);
-                    return View(model); // Trả lại View và hiển thị thông báo lỗi
+
+                    return View(model);
                 }
             }
-            return View(model);
-        }
 
-        // Hàm mã hóa mật khẩu
-        private string HashPassword(string password)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                var bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return Convert.ToBase64String(bytes);
-            }
+            return View(model);
         }
 
         // GET: Account/Login
@@ -115,34 +97,33 @@ namespace _24DH113423_MyStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Kiểm tra đăng nhập với tên người dùng và mật khẩu đã mã hóa
-                var user = db.Users.SingleOrDefault(u => u.Username == model.Username);
+                // tìm user với Username, Password khớp và role là Customer
+                var user = db.Users.SingleOrDefault(u =>
+                        u.Username == model.Username &&
+                        u.Password == model.Password &&
+                        u.UserRole == ROLE_CUSTOMER);
+
                 if (user != null)
                 {
-                    // Kiểm tra mật khẩu
-                    var passwordHash = HashPassword(model.Password);
-                    if (passwordHash == user.Password)
-                    {
-                        // Lưu trạng thái đăng nhập vào session
-                        Session["Username"] = user.Username;
-                        Session["UserRole"] = user.UserRole;
+                    // lưu trạng thái đăng nhập vào session
+                    Session["Username"] = user.Username;
+                    Session["UserRole"] = user.UserRole;
 
-                        // Lưu thông tin xác thực người dùng vào cookie
-                        FormsAuthentication.SetAuthCookie(user.Username, false);
+                    // không dùng FormsAuthentication, chỉ dùng Session
+                    return RedirectToAction("Index", "Home");
+                }
 
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
-                }
+                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng.");
             }
+
             return View(model);
+        }
+
+        // Logout đơn giản
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

@@ -28,11 +28,7 @@
 </section>
 <hr />
 @* THÊM CÁC LIÊN KẾT SẮP XẾP *@
-<section class="sorting">
-    <h4>Sắp xếp theo:</h4>
-    @Html.ActionLink("Giá tăng dần", "Index", "Home", new { sortOrder = "price-asc", searchTerm = Model.SearchTerm }, null) |
-    @Html.ActionLink("Giá giảm dần", "Index", "Home", new { sortOrder = "price-desc", searchTerm = Model.SearchTerm }, null)
-</section>
+
 
 @*PHẦN SẢN PHẨM NỔI BẬT*@
 @Html.Partial("PVFeatureProduct", Model)
