@@ -11,9 +11,13 @@
 
 @Html.Partial("PVProductInfo", Model)
 
-<div class="form-group">
-    <div class="col-md-offset-3 col-md-9">
-        @Html.ActionLink("Xóa", "Delete", new { id = Model.ProductID }, new { @class = "btn btn-primary btn-sm" })
-        @Html.ActionLink("Quay lại danh sách", "Index", null, new { @class = "btn btn-primary btn-sm" })
+@using (Html.BeginForm("Delete", "Products", new { id = Model.ProductID }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken() <!-- CSRF Token -->
+    <div class="form-group">
+        <div class="col-md-offset-3 col-md-9">
+            <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+            <a href="@Url.Action("Index", "Products")" class="btn btn-primary btn-sm">Quay lại danh sách</a>
+        </div>
     </div>
-</div>
+}

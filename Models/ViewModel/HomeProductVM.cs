@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,8 @@ namespace _24DH113423_MyStore.Models.ViewModel
         //tiêu chí để search theo tên, mô tả sp
         //hoặc loại sản phẩm 
         public string SearchTerm { get; set; }
-
+        public string SortOrder { get; set; }  // Tiêu chí sắp xếp
+        public IPagedList<Product> Products { get; set; }  // Danh sách sản phẩm đã phân trang
         //các thuộc tính hỗ trợ phân trang
         public int PageNumber { get; set; } //trang hiện tại
         public int PageSize { get; set; } = 10; //số sản phẩm mỗi trang

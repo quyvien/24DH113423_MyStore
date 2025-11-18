@@ -1,28 +1,137 @@
-﻿.pro {
-    padding: 50px 10px 50px 10px;
+﻿/* NỀN TRANG */
+.pro {
+    padding: 40px 10px;
     background-color: ghostwhite;
 }
 
-.pro-section {
-    background-color: white;
-    border: 1px groove #ffffff;
-    border-radius: 10px;
-    /*padding: 5px;*/
-    margin: 10px;
+/* BỌC 3 KHỐI: TRÁI - GIỮA - PHẢI */
+.div-horizontal {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
 }
 
-    .pro-section img {
-        max-height: 250px;
-        max-width: 200px;
-        padding: 5px;
+/* Style chung cho mỗi khối */
+.pro-section {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* Tỉ lệ rộng của 3 cột (giảm bớt cột trái cho đỡ to) */
+.pro-left {
+    flex: 0 0 220px; /* cột trái ~220px */
+    max-width: 220px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.pro-middle {
+    flex: 1; /* mô tả + tương tự */
+}
+
+.pro-right {
+    flex: 0 0 260px;
+    max-width: 260px;
+}
+    /* Ghi đè style TopProduct khi nó nằm trong cột phải .pro-right */
+
+    /* Bọc "Sản phẩm bán chạy" gọn lại, bỏ nền rộng */
+    .pro-right .listProduct {
+        padding: 0;
+        margin-top: 20px;
+        background: transparent;
+        box-shadow: none;
     }
 
-.pro-price {
-    font-weight: bolder;
-    font-size: larger;
-    color: red;
+        /* Tiêu đề nhỏ lại */
+        .pro-right .listProduct h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* Danh sách trong sidebar: xếp dọc, khoảng cách nhỏ */
+        .pro-right .listProduct .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 0;
+        }
+
+        /* Mỗi item bán chạy: chỉ là 1 dòng nhỏ, không cần card to */
+        .pro-right .listProduct .lproduct-item {
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0;
+            border: none;
+            box-shadow: none;
+            background: transparent;
+        }
+
+            /* Ảnh sản phẩm bán chạy – THU NHỎ Ở ĐÂY */
+            .pro-right .listProduct .lproduct-item img {
+                width: 70px;
+                height: auto;
+                max-height: 100px;
+                object-fit: contain;
+                display: block;
+            }
+
+            /* Tên + giá cho gọn lại */
+            .pro-right .listProduct .lproduct-item h5 {
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            .pro-right .listProduct .lproduct-item .prodSale {
+                font-size: 0.85rem;
+                margin: 0;
+            }
+.pro-img {
+    width: 140px !important; /* trước 180px, giờ 140px */
+    max-width: 140px !important;
+    height: auto !important;
+    max-height: 210px !important; /* nếu vẫn to, giảm tiếp xuống 190–200 */
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+}
+/* Ảnh sách bên trái – thu nhỏ lại, giữ đúng tỉ lệ */
+.pro-left img {
+    max-width: 100%;
+    height: auto;
+    max-height: 250px; /* muốn nhỏ nữa thì giảm xuống 220–250px */
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+.top-product-sidebar img {
+    width: 120px;
+    max-width: 100%;
+    height: auto;
+    max-height: 180px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
-.pro-sale {
-    font-weight: lighter;
+/* RESPONSIVE: MÀN HÌNH NHỎ THÌ XẾP DỌC */
+@media (max-width: 768px) {
+    .div-horizontal {
+        flex-direction: column;
+    }
+
+    .pro-left,
+    .pro-middle,
+    .pro-right {
+        flex: 1 0 auto;
+    }
 }

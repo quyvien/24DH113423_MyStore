@@ -10,7 +10,7 @@
 <div class="container-fluid pro">
     <div class="div-horizontal">
         @* Khối bên trái *@
-        <div class="col-md-3 pro-section">@* Ảnh sản phẩm *@
+        <div class="pro-section pro-left">@* Ảnh sản phẩm *@
             <img src="@Model.Product.ProductImage" />
         </div>
         @* Khối ở giữa *@
@@ -31,7 +31,7 @@
             <div>@Html.Partial("PVRelatedProduct", Model)</div>
         </div>
         @* Khối bên phải *@
-        <div class="col-md-3 pro-section">
+        <div class="pro-section pro-right">
             <div class="form-group">@* Phần tạm tính *@
                 @using (Html.BeginForm("ProductDetails", "Home", FormMethod.Get))
                 {

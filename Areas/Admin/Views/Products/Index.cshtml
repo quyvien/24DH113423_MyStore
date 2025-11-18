@@ -36,10 +36,10 @@
                type = "number"
             })
 
-            @Html.TextBoxFor(m => m.MinPrice, new
+            @Html.TextBoxFor(m => m.MaxPrice, new
             {
                @class = "form-control",
-               placeholder = "Nhập giá trị tối thiểu",
+               placeholder = "Nhập giá trị tối đa",
                type = "number"
             })
             <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -48,27 +48,28 @@
         <div class="form-group order-container">
             Sắp xếp theo:
             @Html.ActionLink("Tên tăng dần", "Index","Products",
-                new {sortOrder = "name_asc",
+                new {sortOrder = "name-asc",
                 searchTerm = Model.SearchTerm,
                 minPrice = Model.MinPrice,
                 maxPrice = Model.MaxPrice}, null) |
             @Html.ActionLink("Tên giảm dần", "Index","Products",
-                new {sortOrder = "name_desc",
+                new {sortOrder = "name-desc",
                 searchTerm = Model.SearchTerm,
                 minPrice = Model.MinPrice,
                 maxPrice = Model.MaxPrice}, null) |
             @Html.ActionLink("Giá tăng dần", "Index","Products",
-                new {sortOrder = "Price_asc",
+                new {sortOrder = "price-asc",
                 searchTerm = Model.SearchTerm,
                 minPrice = Model.MinPrice,
                 maxPrice = Model.MaxPrice}, null) |
             @Html.ActionLink("Giá giảm dần", "Index","Products",
-                new {sortOrder = "Price_desc",
+                new {sortOrder = "price-desc",
                 searchTerm = Model.SearchTerm,
                 minPrice = Model.MinPrice,
                 maxPrice = Model.MaxPrice}, null) |
         </div>
     }
+
     @*form kết quả tìm kiếm*@
     @Html.Partial("PVListProduct", Model)
 </body>

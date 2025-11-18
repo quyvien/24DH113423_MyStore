@@ -27,7 +27,7 @@
         @foreach (var product in Model.Products)
         {
             <tr>
-                <td><img src="@Html.DisplayFor(modelItem => product.ProductImage)" /></td>
+                <td><img src="@Url.Content(product.ProductImage)" alt="Product Image" class="img-fluid" /></td>
                 <td>@Html.DisplayFor(modelItem => product.ProductName)</td>
                 <td>@Html.DisplayFor(modelItem => product.ProductPrice)</td>
                 <td>@Html.DisplayFor(modelItem => product.Category.CategoryName)</td>
@@ -50,11 +50,11 @@
             sortOrder = Model.SortOrder
         }))
     </div>
-}
-else
-{
+ }
+    else
+    {
     <p>Không tìm được sản phẩm nào phù hợp</p>
-}
+    }
 
 
 <div class="form-group">

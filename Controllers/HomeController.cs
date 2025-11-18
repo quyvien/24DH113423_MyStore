@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using PagedList;
 using System.Net;
+using System.Data.SqlClient;
 
 namespace _24DH113423_MyStore.Controllers
 {
@@ -15,7 +16,7 @@ namespace _24DH113423_MyStore.Controllers
         private MyStoreEntities db = new MyStoreEntities();
 
         // GET: Admin/Products
-        public ActionResult Index(string searchTerm, int? page)
+        public ActionResult Index(string searchTerm, string sortOrder, int? page)
         {
             var model = new HomeProductVM();
             var products = db.Products.AsQueryable();
@@ -27,7 +28,24 @@ namespace _24DH113423_MyStore.Controllers
                                                 p.ProductDescription.Contains(searchTerm) ||
                                                 p.Category.CategoryName.Contains(searchTerm));
             }
-
+            switch (sortOrder)
+            {
+                case "name_asc":
+                    products = products.OrderBy(p => p.ProductName);  // Sắp xếp theo tên tăng dần
+                    break;
+                case "name_desc":
+                    products = products.OrderByDescending(p => p.ProductName);  // Sắp xếp theo tên giảm dần
+                    break;
+                case "price_asc":
+                    products = products.OrderBy(p => p.ProductPrice);  // Sắp xếp theo giá tăng dần
+                    break;
+                case "price_desc":
+                    products = products.OrderByDescending(p => p.ProductPrice);  // Sắp xếp theo giá giảm dần
+                    break;
+                default:
+                    products = products.OrderByDescending(p => p.ProductName);  // Mặc định là sắp xếp theo tên giảm dần
+                    break;
+            }
             // Đoạn code liên quan tới phân trang
             // Lấy số trang hiện tại (mặc định là trang 1 nếu không có giá trị)
             int pageNumber = page ?? 1;

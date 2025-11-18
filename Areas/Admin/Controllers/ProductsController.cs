@@ -52,17 +52,17 @@ namespace _24DH113423_MyStore.Areas.Admin.Controllers
                 case "price-desc":products = products.OrderByDescending(p => p.ProductPrice);
                     break;
                 default:
-                    products = products.OrderByDescending(p => p.ProductName);
+                    products = products.OrderBy(p => p.ProductName);
                     break;
             }
             model.SortOrder = sortOrder;
 
-            //Đoạn code liên quan tới phân trang 
-            // lấy số trang hiện tại(mặc địch là trang 1 nếu không có giá trị
+            // Phân trang
             int pageNumber = page ?? 1;
-            int pageSize = 2;
+            int pageSize = model.PageSize > 0 ? model.PageSize : 10; // nếu VM chưa set mặc định
+            model.PageSize = pageSize;
 
-            model.Products = products.ToPagedList(pageNumber, model.PageSize);
+            model.Products = products.ToPagedList(pageNumber, pageSize);
             return View(model);
         }
 

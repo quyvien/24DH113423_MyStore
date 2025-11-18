@@ -10,13 +10,14 @@ using System.Web.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Data.Entity.Validation;
+using Microsoft.AspNetCore.Identity;
 
 namespace _24DH113423_MyStore.Controllers
 {
     public class AccountController : Controller
     {
         private MyStoreEntities db = new MyStoreEntities();
-
+        private const string ROLE_CUSTOMER = "C";
         // GET: Account/Register
         public ActionResult Register()
         {
@@ -56,7 +57,7 @@ namespace _24DH113423_MyStore.Controllers
                     {
                         Username = model.Username,
                         Password = passwordHash, // Mã hóa mật khẩu trước khi lưu
-                        UserRole = "Customer"
+                        UserRole = ROLE_CUSTOMER
                     };
                     db.Users.Add(user);
 

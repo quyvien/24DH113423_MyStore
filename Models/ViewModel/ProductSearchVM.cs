@@ -13,8 +13,8 @@ namespace _24DH113423_MyStore.Models.ViewModel
         public string SearchTerm { get; set; }
 
         //các tiêu chí theo giá
-        public decimal MinPrice { get; set; }
-        public decimal MaxPrice { get; set; }
+        public decimal? MinPrice { get; set; }
+        public decimal? MaxPrice { get; set; }
 
         //Thứ tự sắp xếp
         public string SortOrder { get; set; }

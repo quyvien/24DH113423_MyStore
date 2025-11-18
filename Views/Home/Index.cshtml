@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="~/Content/myStyle/CustomerHome.css" />
 
 @* PHẦN BANNER *@
-<section class="container-fluid banner "style="background-image: url('https://ntx.com.vn/tin-tuc/wp-content/uploads/2021/07/ecommerce-la-gi.jpg'); background-size: cover; display: flex; align-items: center; justify-content: center; min-height: 300px;">
+<section class="container-fluid banner " style="background-image: url('https://ntx.com.vn/tin-tuc/wp-content/uploads/2021/07/ecommerce-la-gi.jpg'); background-size: cover; display: flex; align-items: center; justify-content: center; min-height: 300px;">
     <div class="banner-container">
         <h2>Chào mừng đến trang web E-commerce</h2>
         <p>Mua sắm trực tuyến với hàng ngàn sản phẩm đa dạng và chất lượng</p>
@@ -27,6 +27,12 @@
     }
 </section>
 <hr />
+@* THÊM CÁC LIÊN KẾT SẮP XẾP *@
+<section class="sorting">
+    <h4>Sắp xếp theo:</h4>
+    @Html.ActionLink("Giá tăng dần", "Index", "Home", new { sortOrder = "price-asc", searchTerm = Model.SearchTerm }, null) |
+    @Html.ActionLink("Giá giảm dần", "Index", "Home", new { sortOrder = "price-desc", searchTerm = Model.SearchTerm }, null)
+</section>
 
 @*PHẦN SẢN PHẨM NỔI BẬT*@
 @Html.Partial("PVFeatureProduct", Model)

@@ -1,6 +1,6 @@
-﻿/*Style cho phần BANNER (Giữ nguyên)*/
-.container-fluid banner {
-    
+﻿/* Style cho phần BANNER (Giữ nguyên) */
+.container-fluid.banner {
+    /* Giữ nguyên style banner */
 }
 
 .banner-container {
@@ -25,7 +25,7 @@
     font-weight: bold;
 }
 
-/*Style cho phần SEARCH (Giữ nguyên)*/
+/* Style cho phần SEARCH (Giữ nguyên) */
 .search-container {
     display: flex;
     justify-content: center;
@@ -61,45 +61,46 @@
     color: brown;
 }
 
-/*style của FEATURE PRODUCT (Đã sửa)*/
+/* Style của FEATURE PRODUCT (Đã sửa) */
 .featureProd {
     text-align: center;
 }
 
 .feature-container {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: nowrap; /* Không cho xuống dòng */
+    overflow-x: auto; /* Trượt ngang */
     scroll-snap-type: x mandatory;
-    gap: 30px;
+    gap: 20px;
     padding: 10px 0;
-    justify-content: center;
+    justify-content: flex-start
 }
 
+
 .fproduct-item {
-    /* Giảm kích thước item tổng thể để chứa ảnh nhỏ hơn */
-    width: 130px;
-    max-height: 350px; /* Giảm chiều cao tối đa của item */
-    min-width: 130px;
-    margin: 10px;
-    flex: 0 0 auto;
+    flex: 0 0 25% !important;
+    max-width: 25% !important;
+    box-sizing: border-box;
+    max-height: 350px;
+    margin: 0; /* Khoảng cách đã có gap ở container */
     scroll-snap-align: start;
     text-align: center;
     border: 1px solid #ddd;
-    padding: 5px;
+    padding: 10px;
+    background-color: #fff
 }
 
-.fproduct-item img {
-    display: block;
-    width: auto;
-    /* **ĐIỀU CHỈNH: Giảm chiều cao ảnh nổi bật** */
-    height: 120px;
-    max-height: 120px;
-    margin: 5px auto;
-    background-color: transparent;
-    object-fit: contain;
-}
+    .fproduct-item img {
+        display: block;
+        width: auto;
+        height: 120px;
+        max-height: 120px;
+        margin: 5px auto;
+        background-color: transparent;
+        object-fit: contain;
+    }
 
-/*style của LIST PRODUCT (Đã sửa)*/
+/* Style của LIST PRODUCT (Đã sửa) */
 .listProduct {
     text-align: left;
     margin-top: 40px;
@@ -114,7 +115,6 @@
 
 .list-container {
     list-style-type: none;
-    /* Giảm minmax để phù hợp với kích thước item nhỏ hơn */
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
     display: grid;
     gap: 20px;
@@ -139,7 +139,6 @@
     .product-item img {
         display: block;
         width: auto;
-        /* **ĐIỀU CHỈNH: Giảm chiều cao ảnh sản phẩm mới** */
         height: 120px;
         max-height: 120px;
         max-width: 100%;
@@ -148,7 +147,7 @@
         background-color: transparent;
     }
 
-/*các thuộc tính chung của FEATURE và NEW sản phẩm (Giữ nguyên)*/
+/* Các thuộc tính chung của FEATURE và NEW sản phẩm (Giữ nguyên) */
 .featureProd h2, .listProduct h2 {
     font-size: 2em;
     margin-bottom: 20px;
