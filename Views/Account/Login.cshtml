@@ -1,54 +1,44 @@
-﻿@model _24DH113423_MyStore.Models.ViewModel.LoginVM
-
+@model _24DH113423_MyStore.Models.ViewModel.LoginVM
 @{
     ViewBag.Title = "Đăng nhập";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .accountbtn {
-        width: 275px;
-        height: 40px;
-        border: 1px solid #000000;
-        margin: 5px;
-        align-items: center;
-    }
-</style>
-
-<div>
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            <h2 class="col-md-6" style="text-align:center;">Đăng nhập</h2>
+<div class="account-page">
+    <section class="account-card">
+        <div class="account-heading">
+            <span class="eyebrow">Chào mừng trở lại</span>
+            <h1>Đăng nhập</h1>
+            <p>Tiếp tục hành trình mua sắm của bạn tại FASTOR.</p>
         </div>
 
-        @* Tên đăng nhập *@
-        <div class="form-group">
-            @Html.LabelFor(m => m.Username, new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Username)
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "account-form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger validation-summary" })
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Username, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Nhập tên đăng nhập", autocomplete = "username" })
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        @* Mật khẩu *@
-        <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Password)
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Nhập mật khẩu", autocomplete = "current-password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-4">
-                <input type="submit" value="Đăng nhập" class="btn btn-info accountbtn" />
-                <br />
-                <p>Bạn Chưa Có Tài khoản? <a href="@Url.Action("Register", "Account", null)">Đăng ký ngay</a></p>
-            </div>
-        </div>
-    }
+            <button type="submit" class="btn btn-primary account-submit">Đăng nhập</button>
+            <p class="account-switch">Chưa có tài khoản? <a href="@Url.Action("Register", "Account")">Tạo tài khoản</a></p>
+        }
+    </section>
+    <aside class="account-aside">
+        <span>FASTOR MEMBER</span>
+        <h2>Mua sắm thuận tiện hơn khi mọi thứ được lưu lại.</h2>
+        <ul>
+            <li><i class="fas fa-check"></i> Theo dõi đơn hàng dễ dàng</li>
+            <li><i class="fas fa-check"></i> Thanh toán nhanh hơn</li>
+            <li><i class="fas fa-check"></i> Ưu đãi dành riêng cho thành viên</li>
+        </ul>
+    </aside>
 </div>
+

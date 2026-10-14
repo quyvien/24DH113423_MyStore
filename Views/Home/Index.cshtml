@@ -1,37 +1,61 @@
-﻿@model _24DH113423_MyStore.Models.ViewModel.HomeProductVM
-
+@model _24DH113423_MyStore.Models.ViewModel.HomeProductVM
+@{
+    ViewBag.Title = "Mua sắm tinh gọn";
+}
 <link rel="stylesheet" href="~/Content/myStyle/CustomerHome.css" />
 
-@* PHẦN BANNER *@
-<section class="container-fluid banner " style="background-image: url('https://ntx.com.vn/tin-tuc/wp-content/uploads/2021/07/ecommerce-la-gi.jpg'); background-size: cover; display: flex; align-items: center; justify-content: center; min-height: 300px;">
-    <div class="banner-container">
-        <h2>Chào mừng đến trang web E-commerce</h2>
-        <p>Mua sắm trực tuyến với hàng ngàn sản phẩm đa dạng và chất lượng</p>
-        <a href="#" class="btnBanner">Bắt đầu mua sắm</a>
+<section class="hero">
+    <div class="site-shell hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow">Bộ sưu tập 2026</span>
+            <h1>Ít lựa chọn hơn.<br />Đúng sản phẩm hơn.</h1>
+            <p>Khám phá những sản phẩm thiết thực được chọn lọc kỹ, mức giá rõ ràng và trải nghiệm mua sắm không rườm rà.</p>
+            <a href="#new-products" class="hero-action">Khám phá sản phẩm <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <div class="hero-panel" aria-label="Cam kết của FASTOR">
+            <span class="hero-index">01</span>
+            <div>
+                <span class="hero-panel-label">Chọn lọc mỗi ngày</span>
+                <strong>Sản phẩm tốt.<br />Giá trị thật.</strong>
+            </div>
+            <div class="hero-benefits">
+                <span><i class="fas fa-check"></i> Giá minh bạch</span>
+                <span><i class="fas fa-check"></i> Giao hàng nhanh</span>
+            </div>
+        </div>
     </div>
 </section>
 
-@* PHẦN TÌM KIẾM SẢN PHẨM *@
-<section class="searchProd">
-    <h2>Tìm kiếm sản phẩm</h2>
-    @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+<section class="site-shell search-section" aria-labelledby="search-title">
+    <div>
+        <span class="eyebrow">Tìm nhanh</span>
+        <h2 id="search-title">Bạn đang tìm gì?</h2>
+    </div>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "search-form" }))
     {
-        <div class="form-group search-container">
-            @Html.TextBoxFor(m => m.SearchTerm, new
-            {
-              @class = "search-input",
-              placeholder = "Nhập tên, mô tả hoặc chủng loại sản phẩm"
-            })
-            <button class="search-button">Tìm kiếm</button>
-        </div>
+        <i class="fas fa-search" aria-hidden="true"></i>
+        @Html.TextBoxFor(m => m.SearchTerm, new
+        {
+            @class = "search-input",
+            placeholder = "Tên, mô tả hoặc danh mục sản phẩm",
+            aria_label = "Từ khóa tìm kiếm"
+        })
+        <button type="submit" class="search-button">Tìm kiếm</button>
     }
 </section>
-<hr />
-@* THÊM CÁC LIÊN KẾT SẮP XẾP *@
 
+<div class="site-shell product-sections">
+    @Html.Partial("PVFeatureProduct", Model)
+    <div id="new-products">
+        @Html.Partial("PVNewProduct", Model)
+    </div>
+</div>
 
-@*PHẦN SẢN PHẨM NỔI BẬT*@
-@Html.Partial("PVFeatureProduct", Model)
+<section class="values-strip">
+    <div class="site-shell values-grid">
+        <div><span>01</span><strong>Chọn lọc kỹ</strong><p>Danh mục gọn, dễ lựa chọn.</p></div>
+        <div><span>02</span><strong>Mua sắm an tâm</strong><p>Thông tin rõ ràng, giá minh bạch.</p></div>
+        <div><span>03</span><strong>Hỗ trợ tận tình</strong><p>Luôn đồng hành khi bạn cần.</p></div>
+    </div>
+</section>
 
-@*PHẦN SẢN PHẨM MỚI*@
-@Html.Partial("PVNewProduct", Model)

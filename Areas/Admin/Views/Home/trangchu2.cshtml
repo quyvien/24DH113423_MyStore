@@ -1,79 +1,32 @@
-﻿@* PHẦN BANNER *@
-<section class="banner">
-    <div class="banner-container">
-        <h2>Chào mừng đến trang web E-commerce</h2>
-        <p>Mua sắm trực tuyến với hàng ngàn sản phẩm đa dạng và chất lượng</p>
-        <a href="#" class="btnBanner">Bắt đầu mua sắm</a>
-    </div>
+@{
+    ViewBag.Title = "Tổng quan";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<section class="admin-welcome">
+    <span>FASTOR WORKSPACE</span>
+    <h2>Mọi thứ bạn cần,<br />trong một không gian.</h2>
+    <p>Quản lý cửa hàng rõ ràng và tập trung hơn.</p>
 </section>
 
-@* PHẦN TÌM KIẾM SẢN PHẨM *@
-<section class="searchProd">
-    <h2>Tìm kiếm sản phẩm</h2>
-    <div class="search-container">
-        <input type="text" class="search-input" placeholder="Nhập từ khóa ...">
-        <button class="search-button">Tìm kiếm</button>
-    </div>
-</section>
-
-<hr />
-
-@* PHẦN SẢN PHẨM NỔI BẬT *@
-<section id="featuredProd">
-    <h2>Sản phẩm nổi bật</h2>
-    <div class="prod-container">
-
-        <div class="product-item">
-            <img src="~/Content/images/acer_nitro_5_tiger.png" />
-            <h3>Acer Nitro 5 Tiger</h3>
-            <p class="prodDescription">Mỏng nhẹ, giá sinh viên</p>
-            <p class="prodPrice">9.999.999đ</p>
-        </div>
-
-        <div class="product-item">
-            <img src="~/Content/images/hp-15s-dq-bac-dd.jpg" />
-            <h3>HP 15 DQ màu bạc</h3>
-            <p class="prodDescription">Cấu hình mạnh, phù hợp game thủ</p>
-            <p class="prodPrice">8.999.999đ</p>
-        </div>
-
-        <div class="product-item">
-            <img src="~/Content/images/X1504ZA-NJ517W.jpg" />
-            <h3>ThinkPad X1504ZA</h3>
-            <p class="prodDescription">Phong cách doanh nhân</p>
-            <p class="prodPrice">29.999.999đ</p>
-        </div>
-
-    </div>
-</section>
-
-<hr />
-
-<section class="productList">
-    <h2>Danh sách sản phẩm</h2>
-    <ul class="list-container">
-
-        <li class="product-item">
-            <img src="~/Content/images/acer_nitro_5_tiger.png" />
-            <h3>Acer Nitro 5 Tiger</h3>
-            <p class="prodDescription">Mỏng nhẹ, giá sinh viên</p>
-            <p class="prodPrice">9.999.999đ</p>
-        </li>
-
-        <li class="product-item">
-            <img src="~/Content/images/hp-15s-dq-bac-dd.jpg" />
-            <h3>HP 15 DQ màu bạc</h3>
-            <p class="prodDescription">Cấu hình mạnh, phù hợp game thủ</p>
-            <p class="prodPrice">8.999.999đ</p>
-        </li>
-
-        <li class="product-item">
-            <img src="~/Content/images/X1504ZA-NJ517W.jpg" />
-            <h3>ThinkPad X1504ZA</h3>
-            <p class="prodDescription">Phong cách doanh nhân</p>
-            <p class="prodPrice">29.999.999đ</p>
-        </li>
-
-    </ul>
+<section class="quick-grid">
+    <a href="@Url.Action("Index", "Orders")" class="quick-card">
+        <i class="bi bi-receipt"></i>
+        <span>Vận hành</span>
+        <strong>Quản lý đơn hàng</strong>
+        <small>Theo dõi và cập nhật đơn hàng <i class="bi bi-arrow-right"></i></small>
+    </a>
+    <a href="@Url.Action("Index", "Products")" class="quick-card">
+        <i class="bi bi-box-seam"></i>
+        <span>Kho hàng</span>
+        <strong>Quản lý sản phẩm</strong>
+        <small>Cập nhật danh mục sản phẩm <i class="bi bi-arrow-right"></i></small>
+    </a>
+    <a href="@Url.Action("Index", "Customers")" class="quick-card">
+        <i class="bi bi-people"></i>
+        <span>Khách hàng</span>
+        <strong>Quản lý khách hàng</strong>
+        <small>Xem thông tin khách hàng <i class="bi bi-arrow-right"></i></small>
+    </a>
 </section>
 

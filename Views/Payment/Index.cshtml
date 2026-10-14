@@ -1,36 +1,51 @@
-﻿@model _24DH113423_MyStore.Models.ViewModel.Cart
-
+@model _24DH113423_MyStore.Models.ViewModel.Cart
 @{
     ViewBag.Title = "Thanh toán";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Thanh toán</h2>
+<div class="page-shell checkout-page">
+    <div class="page-heading">
+        <div>
+            <span class="eyebrow">Bước cuối cùng</span>
+            <h1>Thanh toán</h1>
+        </div>
+    </div>
 
-@if (Model == null || Model.Items == null || !Model.Items.Any())
-{
-    <p>Giỏ hàng của bạn đang trống.</p>
-}
-else
-{
-    <p>Tổng tiền: <strong style="color:red">@Model.TotalValue().ToString("N0")</strong></p>
-
-    <table class="table">
-        <tr>
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Thành tiền</th>
-        </tr>
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Quantity</td>
-                <td>@item.TotalPrice.ToString("N0")</td>
-            </tr>
-        }
-    </table>
-
-    <button class="btn btn-success">Xác nhận thanh toán (demo)</button>
-}
+    @if (Model == null || Model.Items == null || !Model.Items.Any())
+    {
+        <div class="empty-state">
+            <i class="fas fa-shopping-bag"></i>
+            <h3>Giỏ hàng đang trống</h3>
+            <p>Chọn sản phẩm trước khi tiếp tục thanh toán.</p>
+            <a href="@Url.Action("Index", "Home")" class="btn btn-primary">Khám phá sản phẩm</a>
+        </div>
+    }
+    else
+    {
+        <div class="checkout-layout">
+            <section class="checkout-card">
+                <div class="checkout-card-heading">
+                    <span>Đơn hàng</span>
+                    <small>@Model.Items.Count() sản phẩm</small>
+                </div>
+                @foreach (var item in Model.Items)
+                {
+                    <div class="checkout-product">
+                        <span class="checkout-product-qty">@item.Quantity×</span>
+                        <span>@item.ProductName</span>
+                        <strong>@item.TotalPrice.ToString("N0")₫</strong>
+                    </div>
+                }
+            </section>
+            <aside class="payment-summary">
+                <span class="eyebrow">Tổng thanh toán</span>
+                <strong>@Model.TotalValue().ToString("N0")₫</strong>
+                <p>Giá đã bao gồm các loại thuế. Phí vận chuyển sẽ được xác nhận ở bước tiếp theo.</p>
+                <button class="btn btn-primary">Xác nhận thanh toán</button>
+                <a href="@Url.Action("Index2", "Cart")">Quay lại giỏ hàng</a>
+            </aside>
+        </div>
+    }
+</div>
 

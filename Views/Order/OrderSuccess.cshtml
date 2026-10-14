@@ -1,44 +1,37 @@
-﻿@model _24DH113423_MyStore.Models.Order
-
+@model _24DH113423_MyStore.Models.Order
 @{
-    ViewBag.Title = "OrderSuccess";
+    ViewBag.Title = "Đặt hàng thành công";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>XÁC NHẬN ĐƠN HÀNG</h2>
-
-@* Phần Thông tin chung của Đơn hàng *@
-<h3>Thông tin đơn hàng</h3>
-<div>
-    <p><strong>Mã đơn hàng:</strong> @Model.OrderID</p>
-    <p><strong>Ngày đặt hàng:</strong> @Model.OrderDate</p>
-    <p><strong>Tổng số tiền:</strong> @Model.TotalAmount</p>
-    <p><strong>Trạng thái thanh toán:</strong> @Model.PaymentStatus</p>
-    <p><strong>Phương thức thanh toán:</strong> @Model.PaymentMethod</p>
-    <p><strong>Phương thức giao hàng:</strong> @Model.ShippingMethod</p>
-    <p><strong>Địa chỉ giao hàng:</strong> @Model.ShippingAddress</p>
+<div class="page-shell">
+    <section class="success-card">
+        <div class="success-icon"><i class="fas fa-check"></i></div>
+        <span class="eyebrow">Đơn hàng #@Model.OrderID</span>
+        <h1>Cảm ơn bạn đã đặt hàng.</h1>
+        <p>FASTOR đã tiếp nhận đơn hàng và sẽ cập nhật trạng thái trong thời gian sớm nhất.</p>
+        <div class="order-facts">
+            <div><span>Ngày đặt</span><strong>@Model.OrderDate.ToString("dd/MM/yyyy")</strong></div>
+            <div><span>Tổng thanh toán</span><strong>@Model.TotalAmount.ToString("N0")₫</strong></div>
+            <div><span>Trạng thái</span><strong>@Model.PaymentStatus</strong></div>
+        </div>
+        <div class="table-responsive order-detail-table">
+            <table class="table">
+                <thead><tr><th>Sản phẩm</th><th>Số lượng</th><th>Đơn giá</th><th>Thành tiền</th></tr></thead>
+                <tbody>
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>@item.Product.ProductName</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.UnitPrice.ToString("N0")₫</td>
+                            <td>@item.TotalPrice.ToString("N0")₫</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <a href="@Url.Action("Index", "Home")" class="btn btn-primary success-action">Tiếp tục mua sắm</a>
+    </section>
 </div>
 
-@* Phần Chi tiết các Sản phẩm đã mua *@
-<h3>Chi tiết đơn hàng</h3>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Đơn giá</th>
-            <th>Tổng giá</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.OrderDetails)
-        {
-            <tr>
-                <td>@item.Product.ProductName</td>
-                <td>@item.Quantity</td>
-                <td>@item.UnitPrice</td>
-                <td>@item.TotalPrice</td>
-            </tr>
-        }
-    </tbody>
-</table>

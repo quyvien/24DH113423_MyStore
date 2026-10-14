@@ -1,45 +1,34 @@
-﻿@model _24DH113423_MyStore.Models.ViewModel.Cart
-
+@model _24DH113423_MyStore.Models.ViewModel.Cart
 @using PagedList.Mvc
-@using PagedList
 
-<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerHome.css" />
-
-<!-- Hiển thị danh sách sản phẩm -->
 @if (Model.SimilarProducts != null && Model.SimilarProducts.Any())
 {
-    <section class="container-fluid listProduct">
-        <h2>Sản phẩm tương tự</h2>
-        <ul class="list-container">
+    <section class="product-section">
+        <div class="section-heading">
+            <div>
+                <span class="eyebrow">Gợi ý dành cho bạn</span>
+                <h2>Sản phẩm tương tự</h2>
+            </div>
+        </div>
+        <div class="list-container">
             @foreach (var product in Model.SimilarProducts)
             {
-                <li class="lproduct-item">
-                    <div>
-                        <a href="@Url.Action("AddToCart", "Cart", new { id = product.ProductID })">
-                            <img src="@product.ProductImage" alt="@product.ProductName" />
-                        </a>
+                <article class="product-item">
+                    <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })" class="product-image">
+                        <img src="@product.ProductImage" alt="@product.ProductName" loading="lazy" />
+                    </a>
+                    <div class="product-meta">
+                        <span class="prodCate">@product.Category.CategoryName</span>
+                        <a href="@Url.Action("ProductDetails", "Home", new { id = product.ProductID })" class="prodName">@product.ProductName</a>
+                        <span class="prodPrice">@product.ProductPrice.ToString("N0")₫</span>
+                        @Html.ActionLink("Thêm vào giỏ", "AddToCart", "Cart", new { id = product.ProductID }, new { @class = "mini-add-button" })
                     </div>
-
-                    <div class="prodName" style="min-height:160px;">
-                        @product.ProductName
-                    </div>
-
-                    <div class="prodPrice">
-                        @product.ProductPrice.ToString("N0") &nbsp;VND
-                    </div>
-
-                    <div>
-                        @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "Cart",
-                            new { id = product.ProductID },
-                            new { @class = "btn btn-info" })
-                    </div>
-                </li>
+                </article>
             }
-        </ul>
+        </div>
     </section>
-
-    <!-- Hiển thị phân trang -->
     <div class="pagination-container">
         @Html.PagedListPager(Model.SimilarProducts, page => Url.Action("Index", new { page }))
     </div>
 }
+

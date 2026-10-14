@@ -1,238 +1,105 @@
-﻿@* Lấy thông tin giỏ hàng *@
 @{
     var cart = Session["Cart"] as _24DH113423_MyStore.Models.ViewModel.Cart;
-
-    // Tạo đối tượng ViewModel dùng PersonalMenuVM và lưu trong ViewBag,
-    // khởi tạo giá trị dựa trên thông tin tài khoản đăng nhập
-    ViewBag.pmmodel = new _24DH113423_MyStore.Models.ViewModel.PersonalMenuVM();
-    ViewBag.pmmodel.IsLoggedIn = User.Identity.IsAuthenticated;
-    ViewBag.pmmodel.Username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty;
-
-    // Nếu giỏ hàng không rỗng thì gán số lượng mặt hàng trong giỏ cho CartCount
-    if (cart != null && cart.Items.Any())
+    ViewBag.pmmodel = new _24DH113423_MyStore.Models.ViewModel.PersonalMenuVM
     {
-        ViewBag.pmmodel.CartCount = cart.Items.Count();
-    }
+        IsLoggedIn = User.Identity.IsAuthenticated,
+        Username = User.Identity.IsAuthenticated ? User.Identity.Name : string.Empty,
+        CartCount = cart != null && cart.Items.Any() ? cart.Items.Count() : 0
+    };
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewBag.Title - My_Store</title>
+    <meta name="theme-color" content="#173f38" />
+    <title>@ViewBag.Title - FASTOR</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
-
-    <style>
-        /* Thanh freeship */
-        .header-top {
-            background-color: #8FE38C;
-            text-align: center;
-            padding: 6px 0;
-            font-size: 14px;
-            color: #106100;
-        }
-
-            .header-top .fs-italic {
-                font-weight: 700;
-                font-style: italic;
-            }
-
-            .header-top .fs-extra {
-                color: #007bff;
-            }
-
-        /* Header chính: logo trái, menu phải */
-        .header-main {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #ffffff;
-        }
-
-        /* Logo */
-        .header-logo .logo-link {
-            text-decoration: none;
-        }
-
-        .logo-text {
-            font-weight: 800;
-            font-size: 26px;
-            letter-spacing: 2px;
-            color: #333;
-        }
-
-        /* Nav phải */
-        .header-nav {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-            font-size: 14px;
-        }
-
-            /* Menu item */
-            .header-nav .nav-item {
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-                color: #333;
-                position: relative;
-            }
-
-                /* Thêm icon vào menu */
-                .header-nav .nav-item i {
-                    margin-right: 5px;
-                }
-
-                .header-nav .nav-item:hover {
-                    color: #007bff;
-                }
-
-        /* Dropdown tài khoản */
-        .dropdown {
-            position: relative;
-        }
-
-            .dropdown .nav-link {
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-                color: #333;
-            }
-
-        .dropdown-arrow {
-            margin-left: 4px;
-            font-size: 10px;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            background-color: #fff;
-            min-width: 180px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            z-index: 1000;
-        }
-
-            .dropdown-content a {
-                display: block;
-                padding: 8px 14px;
-                color: #333;
-                text-decoration: none;
-                font-size: 13px;
-            }
-
-                .dropdown-content a:hover {
-                    background-color: #f5f5f5;
-                }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Giỏ hàng */
-        .cart-badge {
-            background-color: #ff4d4f;
-            color: #fff;
-            border-radius: 999px;
-            padding: 2px 7px;
-            font-size: 11px;
-            margin-left: 4px;
-        }
-
-        /* Thanh navbar */
-        .header-nav .nav-item {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-            color: #333;
-            position: relative;
-        }
-    </style>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <!-- Thanh freeship màu xanh -->
-        <div class="header-top">
-            <p>
-                Free ship đơn từ 40K, giảm nhiều hơn cùng
-                <span class="fs-italic">FREESHIP</span><span class="fs-extra"> EXTRA</span>
-            </p>
+    <header class="site-header">
+        <div class="announcement">
+            <div class="site-shell announcement-inner">
+                <span>Miễn phí vận chuyển cho đơn từ 400.000đ</span>
+                <span class="announcement-note">Mua sắm nhẹ nhàng, giao hàng tận nơi.</span>
+            </div>
         </div>
 
-        <!-- Header chính: logo trái, menu phải -->
-        <div class="header-main container">
-            <!-- Logo -->
-            <div class="header-logo">
-                <a href="@Url.Action("Index", "Home")" class="logo-link">
-                    @* Có thể thay bằng <img> nếu bạn có file logo *@
-                    <span class="logo-text">FASTOR</span>
-                </a>
-            </div>
+        <div class="site-shell header-main">
+            <a href="@Url.Action("Index", "Home")" class="brand" aria-label="FASTOR - Trang chủ">
+                <span class="brand-mark">F</span>
+                <span>FASTOR</span>
+            </a>
 
-            <!-- Menu phải -->
-            <nav class="header-nav">
-                <!-- Trang chủ -->
-                <a href="@Url.Action("Index", "Home")" class="nav-item">
-                    <i class="fas fa-home"></i>
-                    <span>Trang chủ</span>
-                </a>
+            <nav class="header-nav" aria-label="Điều hướng chính">
+                <a href="@Url.Action("Index", "Home")" class="nav-link">Sản phẩm</a>
+                <a href="@Url.Action("About", "Home")" class="nav-link nav-link-secondary">Về chúng tôi</a>
+                <a href="@Url.Action("Contact", "Home")" class="nav-link nav-link-secondary">Liên hệ</a>
 
-                <!-- Tài khoản / Đăng nhập - Đăng ký -->
-                <div class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link">
-                        <i class="fas fa-user-circle"></i>
-                        <span id="account-name">
-                            @if (ViewBag.pmmodel.IsLoggedIn)
-                            {
-                                <text>Tài khoản (@ViewBag.pmmodel.Username)</text>
-                            }
-                            else
-                            {
-                                <text>Tài khoản</text>
-                            }
-                        </span>
-                        <i class="fas fa-chevron-down dropdown-arrow"></i>
-                    </a>
-
-                    <div class="dropdown-content">
+                <div class="account-menu">
+                    <button type="button" class="icon-link account-trigger" aria-label="Tài khoản">
+                        <i class="far fa-user" aria-hidden="true"></i>
+                        <span class="account-label">@(ViewBag.pmmodel.IsLoggedIn ? ViewBag.pmmodel.Username : "Tài khoản")</span>
+                        <i class="fas fa-chevron-down menu-chevron" aria-hidden="true"></i>
+                    </button>
+                    <div class="account-dropdown">
                         @if (ViewBag.pmmodel.IsLoggedIn)
                         {
                             <a href="@Url.Action("Profile", "Account")">Thông tin tài khoản</a>
-                            <a href="@Url.Action("OrderHistory", "Order")">Lịch sử mua hàng</a>
+                            <a href="@Url.Action("OrderHistory", "Order")">Đơn hàng của tôi</a>
                             <a href="@Url.Action("Logout", "Account")">Đăng xuất</a>
                         }
                         else
                         {
-                            <a href="@Url.Action("Register", "Account")">Đăng ký</a>
                             <a href="@Url.Action("Login", "Account")">Đăng nhập</a>
+                            <a href="@Url.Action("Register", "Account")">Tạo tài khoản</a>
                         }
                     </div>
                 </div>
 
-                <!-- Giỏ hàng -->
-                <a href="@Url.Action("Index", "Cart")" class="nav-item">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span>Giỏ hàng</span>
+                <a href="@Url.Action("Index", "Cart")" class="icon-link cart-link" aria-label="Giỏ hàng có @ViewBag.pmmodel.CartCount sản phẩm">
+                    <i class="fas fa-shopping-bag" aria-hidden="true"></i>
+                    <span class="cart-label">Giỏ hàng</span>
                     <span class="cart-badge" id="cart-count">@ViewBag.pmmodel.CartCount</span>
                 </a>
             </nav>
         </div>
     </header>
 
-    @* Nội dung chính của View sẽ được render ở đây *@
-    <div class="container body-content">
+    <main class="site-main">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="site-shell footer-grid">
+            <div>
+                <a href="@Url.Action("Index", "Home")" class="brand brand-footer">
+                    <span class="brand-mark">F</span><span>FASTOR</span>
+                </a>
+                <p>Những sản phẩm thiết thực, được chọn lọc cho nhịp sống hiện đại.</p>
+            </div>
+            <div class="footer-links">
+                <span>Khám phá</span>
+                <a href="@Url.Action("Index", "Home")">Sản phẩm</a>
+                <a href="@Url.Action("About", "Home")">Về FASTOR</a>
+                <a href="@Url.Action("Contact", "Home")">Liên hệ</a>
+            </div>
+            <div class="footer-links">
+                <span>Hỗ trợ</span>
+                <a href="@Url.Action("Index", "Cart")">Giỏ hàng</a>
+                <a href="@Url.Action("Login", "Account")">Tài khoản</a>
+                <span class="footer-muted">T2–T7 · 08:00–20:00</span>
+            </div>
+        </div>
+        <div class="site-shell footer-bottom">
+            <span>© @DateTime.Now.Year FASTOR</span>
+            <span>Thiết kế tối giản. Trải nghiệm rõ ràng.</span>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")

@@ -1,59 +1,63 @@
-﻿@model _24DH113423_MyStore.Models.ViewModel.ProductDetailsVM
+@model _24DH113423_MyStore.Models.ViewModel.ProductDetailsVM
 @{
-    ViewBag.Title = "ProductDetails";
+    ViewBag.Title = Model.Product.ProductName;
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
+<link rel="stylesheet" href="~/Content/myStyle/CustomerDetailProduct.css" />
 
-<link rel="stylesheet" type="text/css" href="~/Content/myStyle/CustomerDetailProduct.css" />
+<div class="page-shell product-detail-page">
+    <nav class="breadcrumb-minimal" aria-label="Đường dẫn">
+        <a href="@Url.Action("Index", "Home")">Sản phẩm</a>
+        <i class="fas fa-chevron-right"></i>
+        <span>@Model.Product.Category.CategoryName</span>
+    </nav>
 
-<div class="container-fluid pro">
-    <div class="div-horizontal">
-        @* Khối bên trái *@
-        <div class="pro-section pro-left">@* Ảnh sản phẩm *@
-            <img src="@Model.Product.ProductImage" />
+    <section class="product-detail-grid">
+        <div class="product-gallery">
+            <span class="detail-badge">Nổi bật</span>
+            <img src="@Model.Product.ProductImage" alt="@Model.Product.ProductName" />
         </div>
-        @* Khối ở giữa *@
-        <div class="col-md-5 pro-section">
-            @* Phần thông tin sản phẩm *@
-            <div>
-                <h4>@Html.DisplayFor(model => model.Product.ProductName)</h4>
-                <p class="pro-sale">Đã bán: &nbsp;@Model.Product.OrderDetails.Count()</p>
-                <p class="pro-price">@Model.Product.ProductPrice.ToString("C")</p>
-                <p>Từ sách:&nbsp;@Model.Product.Category.CategoryName</p>
-                <hr />
-                <h5><strong>Mô tả:</strong></h5>
+
+        <div class="product-info">
+            <span class="eyebrow">@Model.Product.Category.CategoryName</span>
+            <h1>@Model.Product.ProductName</h1>
+            <div class="detail-meta">
+                <span><i class="fas fa-star"></i> Sản phẩm được yêu thích</span>
+                <span>@Model.Product.OrderDetails.Count() đã bán</span>
+            </div>
+            <p class="pro-price">@Model.Product.ProductPrice.ToString("N0")₫</p>
+            <div class="product-description">
+                <h2>Thông tin sản phẩm</h2>
                 <p>@Model.Product.ProductDescription</p>
-                <hr />
             </div>
-
-            @* Khối Related Product *@
-            <div>@Html.Partial("PVRelatedProduct", Model)</div>
         </div>
-        @* Khối bên phải *@
-        <div class="pro-section pro-right">
-            <div class="form-group">@* Phần tạm tính *@
-                @using (Html.BeginForm("ProductDetails", "Home", FormMethod.Get))
-                {
-                    <p>
-                        <h6><strong>Số lượng:</strong></h6>
-                        @Html.TextBoxFor(model => model.quantity, new
-                        { @class = "form-control", @type = "number", @min = 1 })
-                    </p>
 
-                    <h6><strong>Tạm tính:</strong></h6>
-                    <p>@Model.estimatedValue.ToString("N0")</p>
+        <aside class="buy-card">
+            @using (Html.BeginForm("AddToCart", "Cart", FormMethod.Get))
+            {
+                <input type="hidden" name="id" value="@Model.Product.ProductID" />
+                <div class="buy-row">
+                    <span>Đơn giá</span>
+                    <strong>@Model.Product.ProductPrice.ToString("N0")₫</strong>
+                </div>
+                <label for="quantity">Số lượng</label>
+                @Html.TextBoxFor(model => model.quantity, new { @class = "form-control quantity-input", @type = "number", @min = 1, id = "quantity" })
+                <div class="buy-total">
+                    <span>Tạm tính</span>
+                    <strong>@Model.estimatedValue.ToString("N0")₫</strong>
+                </div>
+                <button type="submit" class="btn btn-primary add-to-cart">Thêm vào giỏ hàng</button>
+                <p class="buy-note"><i class="fas fa-shield-alt"></i> Thanh toán an toàn · Hỗ trợ đổi trả</p>
+            }
+        </aside>
+    </section>
 
-                    <p>
-                        @Html.ActionLink("Thêm vào giỏ hàng", "AddToCart", "Cart",
-                            new { id = Model.Product.ProductID, quantity = Model.quantity },
-                            new { @class = "btn btn-info" })
-                    </p>
-                }
-            </div>
-            <hr />
-            @* Khối TopProduct *@
-            <div>@Html.Partial("PVTopProduct", Model)</div>
-        </div>
-    </div>
+    <section class="related-wrap">
+        @Html.Partial("PVRelatedProduct", Model)
+    </section>
+
+    <section class="top-wrap">
+        @Html.Partial("PVTopProduct", Model)
+    </section>
 </div>
+
